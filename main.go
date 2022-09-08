@@ -20,7 +20,7 @@ func main() {
 
 	uri := os.Getenv("MONGODB_URI")
 	if uri == "" {
-		log.Fatal("You must set your 'MONGODB_URI' environmental variable. See\n\t https://www.mongodb.com/docs/drivers/go/current/usage-examples/#environment-variable")
+		log.Fatal("You must set your 'MONGODB_URI' environmental variable. See")
 	}
 	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(uri))
 	if err != nil {
@@ -33,13 +33,13 @@ func main() {
 		}
 	}()
 
-	coll := client.Database("sample_mflix").Collection("movies")
-	title := "Back to the Future"
+	coll := client.Database("test").Collection("user")
+	name := "kim harin"
 
 	var result bson.M
-	err = coll.FindOne(context.TODO(), bson.D{{"title", title}}).Decode(&result)
+	err = coll.FindOne(context.TODO(), bson.D{{"name", name}}).Decode(&result)
 	if err == mongo.ErrNoDocuments {
-		fmt.Printf("No document was found with the title %s\n", title)
+		fmt.Printf("No document was found with the name %s\n", name)
 		return
 	}
 	if err != nil {
